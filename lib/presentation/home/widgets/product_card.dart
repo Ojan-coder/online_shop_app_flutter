@@ -5,7 +5,6 @@ import 'package:testing_aplikasi/data/models/responses/product_response_model.da
 import '../../../core/components/spaces.dart';
 import '../../../core/core.dart';
 import '../../../core/router/app_router.dart';
-import '../models/product_model.dart';
 
 class ProductCard extends StatelessWidget {
   final Product data;
