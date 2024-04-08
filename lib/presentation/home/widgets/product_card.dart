@@ -5,6 +5,7 @@ import 'package:testing_aplikasi/data/models/responses/product_response_model.da
 import 'package:testing_aplikasi/presentation/home/bloc/checkout/checkout_bloc.dart';
 
 import '../../../core/components/spaces.dart';
+import '../../../core/constants/variables.dart';
 import '../../../core/core.dart';
 import '../../../core/router/app_router.dart';
 
@@ -43,7 +44,9 @@ class ProductCard extends StatelessWidget {
                 ClipRRect(
                   borderRadius: BorderRadius.circular(5.0),
                   child: Image.network(
-                    data.image!,
+                    data.image!.contains('http')
+                        ? data.image!
+                        : '${Variables.baseUrlImage}${data.image}',
                     width: 170.0,
                     height: 112.0,
                     fit: BoxFit.cover,

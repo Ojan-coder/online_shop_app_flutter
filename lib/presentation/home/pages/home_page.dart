@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:badges/badges.dart' as badges;
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:testing_aplikasi/presentation/home/bloc/all_product/all_product_bloc.dart';
@@ -9,6 +10,7 @@ import '../../../core/assets/assets.gen.dart';
 import '../../../core/components/search_input.dart';
 import '../../../core/components/spaces.dart';
 import '../../../core/router/app_router.dart';
+import '../bloc/checkout/checkout_bloc.dart';
 import '../models/product_model.dart';
 import '../models/store_model.dart';
 import '../widgets/banner_slider.dart';
@@ -61,18 +63,45 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         title: const Text('Oc Store'),
         actions: [
+          BlocBuilder<CheckoutBloc, CheckoutState>(
+            builder: (context, state) {
+              return state.maybeWhen(
+                loaded: (checkout) {
+                  final totalQuantity = checkout.fold<int>(
+                      0,
+                      (previousValue, element) =>
+                          previousValue + element.quantity);
+                  return totalQuantity > 0
+                      ? badges.Badge(
+                          badgeContent: Text(totalQuantity.toString(),
+                              style: const TextStyle(color: Colors.white)),
+                          child: IconButton(
+                            onPressed: () {
+                              context.goNamed(
+                                RouteConstants.cart,
+                                pathParameters: PathParameters().toMap(),
+                              );
+                            },
+                            icon: Assets.icons.cart.svg(height: 24.0),
+                          ),
+                        )
+                      : IconButton(
+                          onPressed: () {
+                            context.goNamed(
+                              RouteConstants.cart,
+                              pathParameters: PathParameters().toMap(),
+                            );
+                          },
+                          icon: Assets.icons.cart.svg(height: 24.0),
+                        );
+                },
+                orElse: () => const SizedBox.shrink(),
+              );
+            },
+          ),
           IconButton(
             onPressed: () {},
             icon: Assets.icons.notification.svg(height: 24.0),
-          ),
-          IconButton(
-            onPressed: () {
-              context.goNamed(
-                RouteConstants.cart,
-                pathParameters: PathParameters().toMap(),
-              );
-            },
-            icon: Assets.icons.cart.svg(height: 24.0),
           ),
         ],
       ),
