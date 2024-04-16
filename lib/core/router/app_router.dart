@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../presentation/auth/pages/login_page.dart';
+import '../../presentation/auth/pages/register_page.dart';
 import '../../presentation/home/pages/dashboard_page.dart';
 import '../../presentation/intro/splash_page.dart';
 import '../../presentation/orders/pages/cart_page.dart';
@@ -51,18 +53,23 @@ class AppRouter {
         path: RouteConstants.splashPath,
         builder: (context, state) => const SplashPage(),
       ),
-      // GoRoute(
-      //   name: RouteConstants.login,
-      //   path: RouteConstants.loginPath,
-      //   builder: (context, state) => const LoginPage(),
-      //   routes: [
-      //     GoRoute(
-      //       name: RouteConstants.register,
-      //       path: RouteConstants.registerPath,
-      //       builder: (context, state) => const RegisterPage(),
-      //     ),
-      //   ],
-      // ),
+      GoRoute(
+        name: RouteConstants.login,
+        path: RouteConstants.loginPath,
+        builder: (context, state) => const LoginPage(),
+        routes: [
+          //   GoRoute(
+          //     name: RouteConstants.verification,
+          //     path: RouteConstants.verificationPath,
+          //     builder: (context, state) => const VerificationPage(),
+          //   ),
+          GoRoute(
+            name: RouteConstants.register,
+            path: RouteConstants.registerPath,
+            builder: (context, state) => const RegisterPage(),
+          ),
+        ],
+      ),
       GoRoute(
         name: RouteConstants.root,
         path: RouteConstants.rootPath,

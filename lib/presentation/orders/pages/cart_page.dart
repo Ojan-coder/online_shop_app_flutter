@@ -168,10 +168,10 @@ class CartPage extends StatelessWidget {
               return Button.filled(
                 onPressed: () {
                   context.goNamed(
-                    RouteConstants.address,
-                    pathParameters: PathParameters(
-                      rootTab: RootTab.order,
-                    ).toMap(),
+                    RouteConstants.login,
+                    // pathParameters: PathParameters(
+                    //   rootTab: RootTab.order,
+                    // ).toMap(),
                   );
                 },
                 label: 'Checkout ($totalQty)',
