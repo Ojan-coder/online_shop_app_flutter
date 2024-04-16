@@ -6,6 +6,7 @@ import '../../presentation/auth/pages/register_page.dart';
 import '../../presentation/home/pages/dashboard_page.dart';
 import '../../presentation/intro/splash_page.dart';
 import '../../presentation/orders/pages/cart_page.dart';
+import '../../presentation/orders/pages/order_detail_page.dart';
 
 // import '../../presentation/address/models/address_model.dart';
 // import '../../presentation/address/pages/add_address_page.dart';
@@ -81,10 +82,22 @@ class AppRouter {
           );
         },
         routes: [
+          //   GoRoute(
+          //    name: RouteConstants.orderList,
+          //    path: RouteConstants.orderListPath,
+          //    builder: (context, state) => const HistoryOrderPage(),
+          //  ),
           GoRoute(
             name: RouteConstants.cart,
             path: RouteConstants.cartPath,
             builder: (context, state) => const CartPage(),
+            routes: [
+              GoRoute(
+                name: RouteConstants.orderDetail,
+                path: RouteConstants.orderDetailPath,
+                builder: (context, state) => const OrderDetailPage(),
+              ),
+            ],
           ),
         ],
 

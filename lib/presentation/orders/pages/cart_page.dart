@@ -7,6 +7,7 @@ import '../../../core/components/buttons.dart';
 import '../../../core/components/spaces.dart';
 import '../../../core/core.dart';
 import '../../../core/router/app_router.dart';
+import '../../../data/datasources/auth_local_datasource.dart';
 import '../../home/bloc/checkout/checkout_bloc.dart';
 import '../../home/models/product_model.dart';
 import '../../home/models/store_model.dart';
@@ -147,35 +148,35 @@ class CartPage extends StatelessWidget {
                   );
                 },
               );
-              // return Button.filled(
-              //   onPressed: () async {
-              //     final isAuth = await AuthLocalDatasource().isAuth();
-              //     if (!isAuth) {
-              //       context.pushNamed(
-              //         RouteConstants.login,
-              //       );
-              //     } else {
-              //       context.goNamed(
-              //         RouteConstants.orderDetail,
-              //         pathParameters: PathParameters(
-              //           rootTab: RootTab.order,
-              //         ).toMap(),
-              //       );
-              //     }
-              //   },
-              //   label: 'Checkout ($totalQty)',
-              // );
               return Button.filled(
-                onPressed: () {
-                  context.goNamed(
-                    RouteConstants.login,
-                    // pathParameters: PathParameters(
-                    //   rootTab: RootTab.order,
-                    // ).toMap(),
-                  );
+                onPressed: () async {
+                  final isAuth = await AuthLocalDatasource().isAuth();
+                  if (!isAuth) {
+                    context.pushNamed(
+                      RouteConstants.login,
+                    );
+                  } else {
+                    context.goNamed(
+                      RouteConstants.orderDetail,
+                      pathParameters: PathParameters(
+                        rootTab: RootTab.order,
+                      ).toMap(),
+                    );
+                  }
                 },
                 label: 'Checkout ($totalQty)',
               );
+              // return Button.filled(
+              //   onPressed: () {
+              //     context.goNamed(
+              //       RouteConstants.address,
+              //       pathParameters: PathParameters(
+              //         rootTab: RootTab.order,
+              //       ).toMap(),
+              //     );
+              //   },
+              //   label: 'Checkout ($totalQty)',
+              // );
             },
           ),
         ],
